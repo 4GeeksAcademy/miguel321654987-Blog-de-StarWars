@@ -13,7 +13,7 @@ export const initialStore=()=>{
         background: null,
       }
     ],
-    personajes:[]
+    personajes:[],
   }
 }
 
@@ -21,7 +21,7 @@ export default function storeReducer(store, action = {}) {
   switch(action.type){
     case "set_personajes":
       return {...store, personajes: action.payload};
-
+   
 
 
     case 'add_task':

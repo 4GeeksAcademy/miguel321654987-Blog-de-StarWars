@@ -47,10 +47,10 @@ export const Detalle = () => {
     <div className="container bg-dark ">
       <div className="card h-100 text-white bg-dark">
         <div className='row'>
-          <div className='imagen col-12 col-md-6 col-lg-6 p-2'>
-            <img src="https://lumiere-a.akamaihd.net/v1/images/sw-soulmate-leia-result-quiz-and-poll-images_04527594.jpeg?region=56%2C0%2C889%2C500" className="card-img-top" alt="..." />
+          <div className='imagen col-12 col-md-3 col-lg-3 p-3 '>
+            <img src={`https://raw.githubusercontent.com/dsmora/star-wars-guide/refs/heads/master/build/assets/img/characters/${uid}.jpg`} className="card-img-top " alt="..." />
           </div>
-          <div className="card-body col-12 col-md-6 col-lg-6 d-flex row">
+          <div className="card-body col-12 col-md-9 col-lg-9 d-flex row">
             <h3 className="nombre-detalle card-title fw-bold fs-3"> {detallesPersonajes.name}</h3>
             <p className="card-text text-white-50">
               {generarDescripcion(detallesPersonajes)}
@@ -59,7 +59,7 @@ export const Detalle = () => {
               <Link to="/" className="btn btn-sm w-100 p-0 mt-auto btn-primary btn-outline-danger btn-info">Back to home</Link>
             </div>
           </div>
-          <div className=' row mt-3 py-3 g'>
+          <div className=" row mt-3 py-3 m-auto">
             <div className="col-md-3 col-6" style={{ overflowX: 'auto' }}>
               <h6 className=''>Films:</h6>
               <p className='text-break text-secondary text-truncate'>{detallesPersonajes.films}</p>
