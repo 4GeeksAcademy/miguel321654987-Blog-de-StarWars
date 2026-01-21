@@ -30,9 +30,10 @@ export const Detalle = () => {
       }
     }
   }, [uid]);
+  
   const generarDescripcion = (personaje) => {
     // 1. Extraemos las propiedades
-    const { name, birth_year, gender, height, mass, hair_color, eye_color } = personaje;
+    const { name, birth_year, gender, height, mass, eye_color } = personaje;
 
     // 2. Traducción simple de términos técnicos
     const tradGenero = gender === "male" ? "a man" : gender === "female" ? "a woman" : "an individual";
