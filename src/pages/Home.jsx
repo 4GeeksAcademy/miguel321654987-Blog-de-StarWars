@@ -52,30 +52,17 @@ export const Home = () => {
 					return (
 						<div className="col-12 col-sm-6 col-md-4 col-lg-2" key={index}>
 							<div className="card h-100 bg-secondary text-white mb-3">
-								<img
-									src={`https://raw.githubusercontent.com/dsmora/star-wars-guide/refs/heads/master/build/assets/img/characters/${item.uid}.jpg`}
-									alt={item.name}
-								/>
+								<img alt={item.name} src={`https://raw.githubusercontent.com/dsmora/star-wars-guide/refs/heads/master/build/assets/img/characters/${item.uid}.jpg`} />
 								<div className="card-body d-flex flex-column text-center align-items-center">
-									<div
-										className="d-flex flex-row mb-2"
-										onClick={() => handleFavorito(item)}
-										style={{ cursor: "pointer" }}
-									>
+									<div className="d-flex flex-row mb-2" onClick={() => handleFavorito(item)} style={{ cursor: "pointer" }}>
 										{esFavorito ? (
-											<i className="fa-solid fa-thumbs-up text-warning fs-4"></i>
+											<i class="fa-solid fa-heart small text-warning"></i>
 										) : (
-											<i className="fa-regular fa-thumbs-up fs-4"></i>
+											<i class="fa-regular fa-heart small"></i>
 										)}
 									</div>
-
 									<h6 className="card-title">{item.name}</h6>
-									<Link
-										to={`/detalle/${item.uid}`}
-										className="btn btn-sm w-75 mt-auto btn-info"
-									>
-										Details
-									</Link>
+									<Link to={`/detalle/${item.uid}`} className="btn btn-sm w-75 mt-auto btn-info">Details</Link>
 								</div>
 							</div>
 						</div>
