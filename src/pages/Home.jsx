@@ -6,8 +6,8 @@ export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer()
 
-
-	const obtenerPersonajes = async () => {
+	useEffect(() => {
+		const obtenerPersonajes = async () => {
 		await fetch(`https://www.swapi.tech/api/people/`)
 			.then(res => res.json())
 			.then(data => {
@@ -18,13 +18,10 @@ export const Home = () => {
 			})
 			.catch(err => console.error(err))
 	}
-
-
-	useEffect(() => {
-		obtenerPersonajes();
+	obtenerPersonajes();
 	}, []);
 
-	// Función para manejar el onClic en el icono
+	// Función para manejar el onClick en el icono
 	const handleFavorito = (personaje) => {
 		const esFavorito = store.favoritos.some(item => item.id === Number(personaje.uid));
 
@@ -43,7 +40,7 @@ export const Home = () => {
 
 	return (
 		<div className="text-center bg-dark">
-			<h1 className="titulo p-3 text-start">Characters</h1>
+			<h1 className="titulo-characters p-3 text-start">Characters</h1>
 			<div className="text-center mx-3 d-flex row g-4" >
 				{store.personajes.map((item, index) => {
 					// Verificamos si el ID del personaje actual está en el array de favoritos
@@ -56,12 +53,12 @@ export const Home = () => {
 								<div className="card-body d-flex flex-column text-center align-items-center">
 									<div className="d-flex flex-row mb-2" onClick={() => handleFavorito(item)} style={{ cursor: "pointer" }}>
 										{esFavorito ? (
-											<i class="fa-solid fa-heart small text-warning"></i>
+											<i className="fa-solid fa-heart small text-warning"></i>
 										) : (
-											<i class="fa-regular fa-heart small"></i>
+											<i className="fa-regular fa-heart small"></i>
 										)}
 									</div>
-									<h6 className="card-title">{item.name}</h6>
+									<h4 className="card-title text-danger-emphasis fw-bold">{item.name}</h4>
 									<Link to={`/detalle/${item.uid}`} className="btn btn-sm w-75 mt-auto btn-info">Details</Link>
 								</div>
 							</div>

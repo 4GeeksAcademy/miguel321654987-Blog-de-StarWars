@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 
 export const Detalle = () => {
 
-  const { store, dispatch } = useGlobalReducer()
+  const { store } = useGlobalReducer()
   const { uid } = useParams()
-
 
   const [detallesPersonajes, setDetallesPersonajes] = useState({});
 
-  //  CARGAR DATOS 
+  //  CARGAR DATOS DEL PERSONAJE
   useEffect(() => {
     fetch(`https://www.swapi.tech/api/people/${uid}`)
       .then(res => res.json())
@@ -22,27 +21,16 @@ export const Detalle = () => {
         }
       })
       .catch(err => console.error("Error:", err));
-
-    if (uid && store.personajes.length > 0) {
-      const detalleDePersonaje = store.personajes.find(personaje => personaje.uid === Number(uid));
-      if (detalleDePersonaje) {
-        setDetallesPersonajes(detalleDePersonaje);
-      }
-    }
   }, [uid]);
-  
-  const generarDescripcion = (personaje) => {
-    // 1. Extraemos las propiedades
-    const { name, birth_year, gender, height, mass, eye_color } = personaje;
 
-    // 2. Traducción simple de términos técnicos
+  const generarDescripcion = (personaje) => {
+    const { name, birth_year, gender, height, mass, eye_color, skin_color } = personaje;
+
     const tradGenero = gender === "male" ? "a man" : gender === "female" ? "a woman" : "an individual";
 
-    // 3. Construcción del string dinámico
     return `${name} is ${tradGenero} born in the year ${birth_year}.
-    Physically, they stand out with a height of ${height} cm and a weight of ${mass} kg, featuring distinctive ${eye_color} eyes.`
+    Physically, they stand out with a height of ${height} cm and a weight of ${mass} kg, featuring distinctive ${eye_color} eyes and ${skin_color} skin color.`
   };
-
 
   return (
     <div className="container bg-dark ">
@@ -69,12 +57,12 @@ export const Detalle = () => {
               <h6 className=''>Homeworld:</h6>
               <p className='text-break text-secondary text-truncate'>{detallesPersonajes.homeworld}</p>
             </div>
-            
-             <div className="col-md-3 col-6" style={{ overflowX: 'auto' }}>
+
+            <div className="col-md-3 col-6" style={{ overflowX: 'auto' }}>
               <h6 className=''>Created:</h6>
               <p className='text-break text-secondary text-truncate'>{detallesPersonajes.created}</p>
             </div>
-             <div className="col-md-3 col-6" style={{ overflowX: 'auto' }}>
+            <div className="col-md-3 col-6" style={{ overflowX: 'auto' }}>
               <h6 className=''>Edited:</h6>
               <p className='text-break text-secondary text-truncate'>{detallesPersonajes.edited}</p>
             </div>
