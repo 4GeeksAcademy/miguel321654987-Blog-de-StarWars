@@ -14,7 +14,8 @@ export const initialStore = () => {
       }
     ],
     personajes: [],
-    favoritos: []
+    favoritos: [],
+    planetas: []
   }
 }
 
@@ -39,6 +40,11 @@ case "delete_favorito":
     favoritos: store.favoritos.filter((item) => item.id !== action.payload)
   };
 
+  case "set_planetas":
+      return {
+        ...store,
+        planetas: action.payload
+      };
 
 
     case 'add_task':
