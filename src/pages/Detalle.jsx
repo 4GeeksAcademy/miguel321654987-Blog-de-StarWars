@@ -1,55 +1,41 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { useParams } from 'react-router-dom';
 import { CharacterDetail } from '../components/CharacterDetail.jsx';
+import { PlanetDetail } from '../components/PlanetDetail.jsx';
+import { VehicleDetail } from '../components/VehicleDetail.jsx';
 
+export const Detalle = ({ tipo }) => { // Recibo el tipo por props
+  const { uid } = useParams();
+  const [data, setData] = useState(null);
 
-export const Detalle = () => {
-
-  const { store } = useGlobalReducer()
-  const { uid } = useParams()
-
-  const [detallesPersonajes, setDetallesPersonajes] = useState({});
-  const [detallesPlanetas, setDetallesPlanetas] = useState({});
-
-  //  CARGAR DATOS DEL PERSONAJE
   useEffect(() => {
-    fetch(`https://www.swapi.tech/api/people/${uid}`)
+
+    // Definimos el endpoint basándonos en el "tipo" que llega por props.
+    // const: valores que no cambian nunca. let: variables que van a ser reasignadas (endpoint empieza vacío y luego toma el valor según if).
+    let endpoint = "";
+    if (tipo === "personaje") {
+      endpoint = "people";
+    } else if (tipo === "planeta") {
+      endpoint = "planets";
+    } else if (tipo === "vehiculo") {
+      endpoint = "vehicles";
+    }
+    // fetch dinámico en función de endpoint
+    fetch(`https://www.swapi.tech/api/${endpoint}/${uid}`)
       .then(res => res.json())
-      .then(data => {
-        // SWAPI.tech guarda los datos en data.result.properties
-        if (data.result) {
-          setDetallesPersonajes(data.result.properties);
-        }
-      })
-      .catch(err => console.error("Error:", err));
+      .then(json => setData(json.result.properties))
+      .catch(err => console.error(err));
 
-      fetch(`https://www.swapi.tech/api/planets/${uid}`)
-      .then(res => res.json())
-      .then(data => {
-        // SWAPI.tech guarda los datos en data.result.properties
-        if (data.result) {
-          setDetallesPlanetas(data.result.properties);
-        }
-      })
-      .catch(err => console.error("Error:", err));
-  }, [uid]);
+  }, [uid, tipo]);
 
-  const generarDescripcion = (personaje) => {
-    const { name, birth_year, gender, height, mass, eye_color, skin_color } = personaje;
-
-    const tradGenero = gender === "male" ? "a man" : gender === "female" ? "a woman" : "an individual";
-
-    return `${name} is ${tradGenero} born in the year ${birth_year}.
-    Physically, they stand out with a height of ${height} cm and a weight of ${mass} kg, featuring distinctive ${eye_color} eyes and ${skin_color} skin color.`
-  };
+  if (!data) return <p>Cargando...</p>;
 
   return (
-    <div className="container bg-dark ">
-      {
-         <CharacterDetail data={detallesPersonajes} uid={uid} />
-      }
-
+    <div className="container bg-dark py-5">
+      {/* Si el tipo es personaje, muestra CharacterDetail */}
+      {tipo === "personaje" && <CharacterDetail data={data} uid={uid} />}
+      {tipo === "planeta" && <PlanetDetail data={data} uid={uid} />}
+      {tipo === "vehiculo" && <VehicleDetail data={data} uid={uid} />}
     </div>
-  )
-}
+  );
+};

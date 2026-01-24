@@ -15,7 +15,7 @@ export const Character = ({ item, esFavorito, handleFavorito }) => {
                         )}
                     </div>
                     <h4 className="card-title text-danger-emphasis fw-bold">{item.name}</h4>
-                    <Link to={`/detalle/${item.uid}`} className="btn btn-sm w-75 mt-auto btn-info">Details</Link>
+                    <Link to={`/character/${item.uid}`} className="btn btn-sm w-75 mt-auto btn-info">Details</Link>
                 </div>
             </div>
         </div>

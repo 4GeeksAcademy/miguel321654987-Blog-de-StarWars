@@ -15,7 +15,8 @@ export const initialStore = () => {
     ],
     personajes: [],
     favoritos: [],
-    planetas: []
+    planetas: [],
+    vehiculos: []
   }
 }
 
@@ -27,23 +28,28 @@ export default function storeReducer(store, action = {}) {
         personajes: action.payload
       };
 
-case "add_favorito":
-  return {
-    ...store,
-    favoritos: [...store.favoritos, action.payload] // Copia lo que había y añade el nuevo
-  };
+    case "add_favorito":
+      return {
+        ...store,
+        favoritos: [...store.favoritos, action.payload] // Copia lo que había y añade el nuevo
+      };
 
-// PARA ELIMINAR (Recibiendo el ID)
-case "delete_favorito":
-  return {
-    ...store,
-    favoritos: store.favoritos.filter((item) => item.id !== action.payload)
-  };
+    // PARA ELIMINAR (Recibiendo el ID)
+    case "delete_favorito":
+      return {
+        ...store,
+        favoritos: store.favoritos.filter((item) => item.id !== action.payload)
+      };
 
-  case "set_planetas":
+    case "set_planetas":
       return {
         ...store,
         planetas: action.payload
+      };
+    case "set_vehiculos":
+      return {
+        ...store,
+        vehiculos: action.payload
       };
 
 

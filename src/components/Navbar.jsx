@@ -27,7 +27,10 @@ export const Navbar = () => {
 						{store.favoritos.length > 0 ? (
 							store.favoritos.map((fav) => (
 								<li key={fav.id} className="dropdown-item d-flex justify-content-between align-items-center text-black">
-									<Link to={`/detalle/${fav.id}`} className="text-decoration-none text-warning flex-grow-1">{fav.name}</Link>
+									{/* Usamos fav.type y fav.uid para la ruta correcta */}
+									<Link to={`/${fav.type}/${fav.uid}`} className="text-decoration-none text-warning flex-grow-1">
+										{fav.name}
+									</Link>
 									{/* Botón para eliminar del array de favoritos */}
 									<i className="fa-solid fa-trash-can text-danger-emphasis ms-2" style={{ cursor: "pointer" }}
 										onClick={(e) => { dispatch({ type: "delete_favorito", payload: fav.id }) }}>

@@ -13,7 +13,7 @@ import { Detalle } from "./pages/Detalle";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    
+
     // Root Route: All navigation will start from here.
     <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
 
@@ -21,7 +21,10 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/single/:theId" element={<Single />} />  {/* Dynamic route for single items */}
       <Route path="/demo" element={<Demo />} />
-       <Route path="/detalle/:uid" element={<Detalle />} />
-      </Route>
+      <Route path="/character/:uid" element={<Detalle tipo="personaje" />} />
+      <Route path="/planet/:uid" element={<Detalle tipo="planeta" />} />
+       <Route path="/vehicle/:uid" element={<Detalle tipo="vehiculo" />} />
+
+    </Route>
   )
 );
